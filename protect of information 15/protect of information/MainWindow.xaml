@@ -1,0 +1,28 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:protect_of_information"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="protect_of_information.MainWindow"
+        mc:Ignorable="d"
+        Title="Главное меню" Height="210.636" Width="341.744">
+    <Grid Loaded="Grid_Loaded" Margin="0,0,2,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="loginL" Content="Имя" HorizontalAlignment="Left" Margin="12,44,0,0" VerticalAlignment="Top" Height="26" Width="74"/>
+        <TextBox x:Name="loginT" HorizontalAlignment="Left" Height="23" Margin="108,47,0,0" TextWrapping="Wrap" Text="admin" VerticalAlignment="Top" Width="156" GotFocus="loginT_GotFocus"/>
+        <Button x:Name="enter" Content="Вход" HorizontalAlignment="Left" Margin="22,132,0,0" VerticalAlignment="Top" Width="93" Click="enter_Click" Height="20"/>
+        <Label x:Name="passL" Content="Пароль" HorizontalAlignment="Left" Margin="12,75,0,0" VerticalAlignment="Top" Height="26" Width="74"/>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="332">
+            <MenuItem Header="Справка" Click="MenuItem_Click">
+                <Button Content="О программе" Click="Button_Click_1"/>
+            </MenuItem>
+        </Menu>
+        <PasswordBox x:Name="passT" HorizontalAlignment="Left" Margin="108,83,0,0" VerticalAlignment="Top" Width="156"/>
+        <Button x:Name="exit" Content="Выход" HorizontalAlignment="Left" Margin="221,132,0,0" VerticalAlignment="Top" Width="93" Click="exit_Click" Height="20"/>
+
+    </Grid>
+</Window>
