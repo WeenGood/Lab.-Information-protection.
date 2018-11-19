@@ -1,0 +1,23 @@
+C:\Users\Ween Good\source\repos\protect of information\protect of information\bin\Debug\protect of information.exe.config
+C:\Users\Ween Good\source\repos\protect of information\protect of information\bin\Debug\protect of information.exe
+C:\Users\Ween Good\source\repos\protect of information\protect of information\bin\Debug\protect of information.pdb
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\protect of information.csprojAssemblyReference.cache
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\MainWindow.g.cs
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\App.g.cs
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\protect of information_MarkupCompile.cache
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\protect of information_MarkupCompile.lref
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\MainWindow.baml
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\protect of information.g.resources
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\protect_of_information.Properties.Resources.resources
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\protect of information.csproj.GenerateResource.cache
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\protect of information.csproj.CoreCompileInputs.cache
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\protect of information.exe
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\protect of information.pdb
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\admin.g.cs
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\admin.baml
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\add user.g.cs
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\add user.baml
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\user.g.cs
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\user.baml
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\accept.g.cs
+C:\Users\Ween Good\source\repos\protect of information\protect of information\obj\Debug\accept.baml
