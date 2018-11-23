@@ -7,13 +7,14 @@
         mc:Ignorable="d"
         Title="Окно" Height="227.578" Width="301.749">
     <Grid>
-        <Button Content="Готово" HorizontalAlignment="Left" Margin="99,147,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Готово" HorizontalAlignment="Left" Margin="34,149,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Label Content="Старый пароль" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,43,0,0"/>
         <Label Content="Новый пароль" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,71,0,0"/>
         <Label Content="Повтор нового пароля" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,102,0,0"/>
         <PasswordBox x:Name="lastPwdT" HorizontalAlignment="Left" Margin="155,43,0,0" VerticalAlignment="Top" Width="113"/>
         <PasswordBox x:Name="newPwdT" HorizontalAlignment="Left" Margin="155,71,0,0" VerticalAlignment="Top" Width="113"/>
         <PasswordBox x:Name="secondNewPwdT" HorizontalAlignment="Left" Margin="155,102,0,0" VerticalAlignment="Top" Width="113"/>
+        <Button x:Name="exit" Content="Выход" HorizontalAlignment="Left" Margin="166,149,0,0" VerticalAlignment="Top" Width="75" Click="exit_Click"/>
 
     </Grid>
 </Window>

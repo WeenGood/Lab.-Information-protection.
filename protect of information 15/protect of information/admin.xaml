@@ -5,17 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:protect_of_information"
         mc:Ignorable="d"
-        Title="Окно администратора" Height="450" Width="460.146" Activated="Window_Activated">
+        Title="Окно администратора" Height="463.18" Width="545.815" Activated="Window_Activated">
     <Grid Loaded="Grid_Loaded">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="119*"/>
-            <ColumnDefinition Width="333*"/>
+            <ColumnDefinition Width="142*"/>
+            <ColumnDefinition Width="129*"/>
+            <ColumnDefinition Width="267*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="saveB" Content="Сохранить" HorizontalAlignment="Left" Margin="91,328,0,0" VerticalAlignment="Top" Width="75" Click="saveB_Click" Grid.ColumnSpan="2"/>
-        <DataGrid x:Name="myDataGrid" HorizontalAlignment="Left" Height="399" Margin="51.674,10,0,0" VerticalAlignment="Top" Width="271" Loaded="DataGrid_Loaded" MouseDoubleClick="myDataGrid_MouseDoubleClick" SelectionUnit="Cell" Grid.Column="1" IsHitTestVisible="True"/>
+        <DataGrid x:Name="myDataGrid" HorizontalAlignment="Left" Height="399" Margin="115,10,0,0" VerticalAlignment="Top" Width="271" Loaded="DataGrid_Loaded" MouseDoubleClick="myDataGrid_MouseDoubleClick" SelectionUnit="Cell" Grid.Column="1" IsHitTestVisible="True" Grid.ColumnSpan="2"/>
         <Button x:Name="newB" Content="Добавить" HorizontalAlignment="Left" Margin="91,295,0,0" VerticalAlignment="Top" Width="75" Click="newB_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="changePwd" Content="Сменить пароль" HorizontalAlignment="Left" Margin="31,210,0,0" VerticalAlignment="Top" Width="108" Click="changePwd_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="changePwd" Content="Сменить пароль" HorizontalAlignment="Left" Margin="31,210,0,0" VerticalAlignment="Top" Width="108" Click="changePwd_Click"/>
         <Button Content="Выход" HorizontalAlignment="Left" Margin="10,394,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <TextBox x:Name="codeEnc" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="10,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
+        <Button x:Name="encB" Content="Сохранить" HorizontalAlignment="Left" Margin="68,71,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click_1" Grid.ColumnSpan="2"/>
+        <Label Content="Новый код шифрования:" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="180"/>
 
     </Grid>
 </Window>

@@ -138,6 +138,7 @@ namespace protect_of_information
                     }
 
                     myWriter.Close();
+                    cD.Close();
                     this.Close();
                 }
                 else
@@ -154,6 +155,11 @@ namespace protect_of_information
                     MessageBox.Show("Пароль подтверждение был вверден неправильно!", "Ошибка!");
                 }
             }
+        }
+
+        private void exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

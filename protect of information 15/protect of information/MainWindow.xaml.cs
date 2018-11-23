@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
-using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace protect_of_information
 {
@@ -31,6 +21,7 @@ namespace protect_of_information
             InitializeComponent();
         }
 
+        string codeEnc;
 
         class MyTable
         {
@@ -60,19 +51,30 @@ namespace protect_of_information
         }
 
         string way = @"database.txt";
+        string way2 = @"database2.txt";
+
+        bool ok;
+
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {    
-            FileInfo fileInf = new FileInfo(way);
-            if(fileInf.Exists)
-            {
-                fileInf.Delete();
-            }
-            FileStream wtf = fileInf.Create();
-            wtf.Dispose();
-            StreamWriter myWriter = fileInf.AppendText();
-            myWriter.WriteLine("admin||-|-");
-            myWriter.Close();
+        {
+            code encWin = new code();
+            encWin.ShowDialog();
+            codeEnc = encWin.codeEnc;
+            ok = encWin.ok;
+            if (!encWin.ok)
+                this.Close();
+
+            //FileInfo fileInf = new FileInfo(way);
+            //if(fileInf.Exists)
+            //{
+            //    fileInf.Delete();
+            //}
+            //FileStream wtf = fileInf.Create();
+            //wtf.Dispose();
+            //StreamWriter myWriter = fileInf.AppendText();
+            //myWriter.WriteLine("admin||-|-");
+            //myWriter.Close();
         }
 
         List<MyTable> createMyList()
@@ -89,7 +91,7 @@ namespace protect_of_information
                 data = line.Split('|');
                 result.Add(new MyTable(data[0], data[1], data[2], data[3]));
                 line = myReader.ReadLine();
-            } while (line != null);
+            } while (line != null && line != "");
             myReader.Close();
             return result;
         }
@@ -176,7 +178,7 @@ namespace protect_of_information
                     if (!newPass)
                     {
                         myReader.Close();
-                        user user = new user(data);
+                        userWindow user = new userWindow(data);
                         user.ShowDialog();
                     }
                     break;
@@ -198,13 +200,15 @@ namespace protect_of_information
             {
                 flag = !flag;
                 countMiss = 0;
-                admin admin = new admin();
+                admin admin = new admin(codeEnc);
                 admin.ShowDialog();
+                if (admin.myCodeEnc != codeEnc)
+                    codeEnc = admin.myCodeEnc;
             }
             else if(flag && !adminF)
             {
                 countMiss = 0;
-                user user = new user(data);
+                userWindow user = new userWindow(data);
                 user.ShowDialog();
             }
             else 
@@ -235,9 +239,62 @@ namespace protect_of_information
             MessageBox.Show("Провоторов Иван, Вариант 15: Наличие латинских букв, символов кириллицы и знаков арифметических операций.", "О программе");
         }
 
+        void encr()
+        {
+            StreamReader myReader = new StreamReader(way);
+
+            string original = myReader.ReadToEnd();
+
+            myReader.Close();
+
+            RC2CryptoServiceProvider rc2CSP = new RC2CryptoServiceProvider();
+            
+
+            byte[] key = Encoding.Default.GetBytes(codeEnc);//Encoding.Default.GetBytes("qwert");
+            rc2CSP.Key = key;
+
+            byte[] IV = { 156, 158, 224, 153, 115, 56, 171, 196 };
+            rc2CSP.IV = IV;
+
+            ICryptoTransform encryptor = rc2CSP.CreateEncryptor(key, rc2CSP.IV);
+
+            MemoryStream msEncrypt = new MemoryStream();
+            CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write);
+
+            byte[] toEncrypt = Encoding.Default.GetBytes(original);
+
+            csEncrypt.Write(toEncrypt, 0, toEncrypt.Length);
+            csEncrypt.FlushFinalBlock();
+
+            byte[] encrypted = msEncrypt.ToArray();
+            msEncrypt.Close();
+            csEncrypt.Close();
+            StreamWriter myWriter = new StreamWriter(way2);
+
+            myWriter.Write(Encoding.Default.GetString(encrypted));
+
+            myWriter.Close();
+        }
+
         private void exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            
+            
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ok) encr();
+            FileInfo myFile = new FileInfo(way);
+            if(myFile.Exists)
+            {
+                myFile.Delete();
+            }
         }
     }
 }

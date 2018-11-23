@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace protect_of_information
 {
@@ -20,8 +21,10 @@ namespace protect_of_information
     /// </summary>
     public partial class admin : Window
     {
-        public admin()
+        public string myCodeEnc;
+        public admin(string codeE)
         {
+            myCodeEnc = codeE;
             InitializeComponent();
         }
 
@@ -39,7 +42,6 @@ namespace protect_of_information
             string line;
             string[] data;
             int flag = 5;
-            int res;
             for (int i = 0; i<myDataGrid.Items.Count; i++)
             {
                 line = myDataGrid.Items[i].ToString();
@@ -66,6 +68,7 @@ namespace protect_of_information
                     break;
                 }  
             }
+            cD.Close();
             if (flag == 5)
             {
                 StreamWriter myWriter = new StreamWriter(way, false);
@@ -74,12 +77,15 @@ namespace protect_of_information
                     line = myDataGrid.Items[i].ToString();
                     myWriter.WriteLine(line);
                 }
+                myWriter.Dispose();
                 myWriter.Close();
             }
             else
             {
                 MessageBox.Show("Проверьте поля!", "Ошибка!");
             }
+
+
         }
 
         class MyTable
@@ -105,7 +111,7 @@ namespace protect_of_information
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            DataGrid_Loaded(sender, e);
+
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
@@ -118,12 +124,13 @@ namespace protect_of_information
 
             line = myReader.ReadLine();
             do
-            {
+            { 
                 data = line.Split('|');
                 result.Add(new MyTable(data[0], data[1], data[2], data[3]));
                 line = myReader.ReadLine();
-            } while (line != null);
+            } while (line != null && line!="");
             myDataGrid.ItemsSource = result;
+            myReader.Dispose();
             myReader.Close();
         }
 
@@ -131,7 +138,6 @@ namespace protect_of_information
         {
             add_user window = new add_user();
             window.ShowDialog();
-            
         }
 
         private void myDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -159,6 +165,7 @@ namespace protect_of_information
                 line = myReader.ReadLine();
             } while (line != null);
 
+            myReader.Dispose();
             myReader.Close();
             if (flag)
             {
@@ -188,14 +195,33 @@ namespace protect_of_information
                 data = line.Split('|');
                 result.Add(new MyTable(data[0], data[1], data[2], data[3]));
                 line = myReader.ReadLine();
-            } while (line != null);
+            } while (line != null && line!="");
             myDataGrid.ItemsSource = result;
+            myReader.Dispose();
             myReader.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (codeEnc.Text.Length > 4 && codeEnc.Text.Length < 17)
+            {
+                myCodeEnc = codeEnc.Text;
+                MessageBox.Show("Новый код установлен!", "Сообщение!");
+            }
+            else
+            {
+                MessageBox.Show("Такой код не подходит!", "Ошибка");
+            }
+        }
+
+        private void decrB_Click(object sender, RoutedEventArgs e)
+        {
+         
         }
     }
 

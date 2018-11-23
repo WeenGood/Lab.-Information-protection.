@@ -57,8 +57,14 @@
     <Compile Include="accept.xaml.cs">
       <DependentUpon>accept.xaml</DependentUpon>
     </Compile>
+    <Compile Include="code.xaml.cs">
+      <DependentUpon>code.xaml</DependentUpon>
+    </Compile>
     <Compile Include="user.xaml.cs">
       <DependentUpon>user.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="userWindow.xaml.cs">
+      <DependentUpon>userWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="accept.xaml">
       <SubType>Designer</SubType>
@@ -69,6 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="code.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -91,6 +101,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="user.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="userWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
