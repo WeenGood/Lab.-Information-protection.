@@ -108,7 +108,39 @@ namespace protect_of_information
 
 
 
+        public static string HashPassword(string input)
+        {
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+            byte[] hash = md5.ComputeHash(inputBytes);
+            // step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("X2"));
+            }
+            return sb.ToString();
+        }
 
+        public static bool VerifyMd5Hash(string input, string hash)
+        {
+
+            MD5 md5Hash = MD5.Create();
+            // Hash the input.
+            string hashOfInput = HashPassword(input);
+
+            // Create a StringComparer an compare the hashes.
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+            if (0 == comparer.Compare(hashOfInput, hash))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         private void enter_Click(object sender, RoutedEventArgs e)
         {
@@ -140,8 +172,8 @@ namespace protect_of_information
                         break;
                     }
                 data = line.Split('|');
-                if (data[1] == "") newPass = true;
-                if (login == data[0] && (pass == data[1]||newPass) && data[2] != "+" && (data[3] == "-" ||data[3]=="+") && (data[3]=="-" || checkData(pass))) 
+                if (data[0] == login && data[1] == "") newPass = true;
+                if (login == data[0] && (VerifyMd5Hash(pass, data[1])||newPass) && data[2] != "+" && (data[3] == "-" ||data[3]=="+") && (data[3]=="-" || checkData(pass))) 
                 {
                     okay = true;
                     if (pass != "")
@@ -171,7 +203,7 @@ namespace protect_of_information
                         break;
                     }
                 }
-                else if((pass == data[1] || newPass) && data[3] == "+" && !checkData(pass))
+                else if(login == data[0] && (VerifyMd5Hash(pass, data[1]) || newPass) && data[3] == "+" && !checkData(pass))
                 {
                     MessageBox.Show("В пароле должны присутствовать латинские буквы, символы кириллицы и знаки арифметических операций!", "Ошибка");
 
@@ -192,7 +224,7 @@ namespace protect_of_information
 
                 foreach (var a in result)
                 {
-                    myWriter.WriteLine(a.login + "|" + a.password + "|" + a.ban + "|" + a.limit);
+                    myWriter.WriteLine(a.login + "|" + HashPassword(a.password) + "|" + a.ban + "|" + a.limit);
                 }
                 myWriter.Close();
             }
@@ -283,8 +315,28 @@ namespace protect_of_information
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            
-            
+                List<string[]> hpas = new List<string[]>();
+                StreamReader myReader = new StreamReader(way);
+                string line = myReader.ReadLine();
+                string[] data;
+                do
+                {
+                    data = line.Split('|');
+                    data[1] = HashPassword(data[1]);
+                    hpas.Add(data);
+                    line = myReader.ReadLine();
+                } while (line != null && line != "");
+
+                myReader.Close();
+                myReader.Dispose();
+
+                StreamWriter myWriter = new StreamWriter(way);
+
+                foreach (var a in hpas)
+                    myWriter.WriteLine(a[0] + "|" + a[1] + "|" + a[2] + "|" + a[3]);
+
+                myWriter.Close();
+                myWriter.Dispose();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -296,5 +348,7 @@ namespace protect_of_information
                 myFile.Delete();
             }
         }
+
+
     }
 }

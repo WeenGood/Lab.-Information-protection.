@@ -36,6 +36,8 @@ namespace protect_of_information
             DataGrid_Loaded(sender,e);
         }
 
+       
+
         MainWindow cD = new MainWindow();
         private void saveB_Click(object sender, RoutedEventArgs e)
         {

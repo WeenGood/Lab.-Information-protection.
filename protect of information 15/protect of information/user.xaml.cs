@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace protect_of_information
 {
@@ -58,11 +59,47 @@ namespace protect_of_information
             public string limit { get; set; }
         }
         MainWindow cD = new MainWindow();
+
+        public static string HashPassword(string input)
+        {
+            MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            byte[] hash = md5.ComputeHash(inputBytes);
+            // step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("X2"));
+            }
+            return sb.ToString();
+        }
+
+        public static bool VerifyMd5Hash(string input, string hash)
+        {
+
+            MD5 md5Hash = MD5.Create();
+            // Hash the input.
+            string hashOfInput = HashPassword(input);
+
+            // Create a StringComparer an compare the hashes.
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+            if (0 == comparer.Compare(hashOfInput, hash))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (data[3] == "-")
             {
-                if (lastPwdT.Password == data[1] && newPwdT.Password == secondNewPwdT.Password)
+                if (VerifyMd5Hash(lastPwdT.Password, data[1]) && newPwdT.Password == secondNewPwdT.Password)
                 {
                     StreamReader myReader = new StreamReader(way);
 
@@ -83,7 +120,7 @@ namespace protect_of_information
 
                     StreamWriter myWriter = new StreamWriter(way);
                     result.Remove(result.Find(x => x.login == data[0]));
-                    MyTable newPwd = new MyTable(data[0], newPwdT.Password, data[2],data[3]);
+                    MyTable newPwd = new MyTable(data[0], HashPassword(newPwdT.Password), data[2],data[3]);
                     result.Add(newPwd);
 
                     foreach(var a in result)
@@ -99,7 +136,7 @@ namespace protect_of_information
                 {
                     MessageBox.Show("В пароле должны присутствовать латинские буквы, символы кириллицы и знаки арифметических операций!", "Ошибка");
                 }
-                else if (lastPwdT.Password != data[1])
+                else if (!VerifyMd5Hash(lastPwdT.Password, data[1]))
                 {
                     MessageBox.Show("Проверьте текущий пароль!", "Ошибка");
                 }
@@ -110,7 +147,7 @@ namespace protect_of_information
             }
             else
             {
-                if ((data[1] == "" || lastPwdT.Password == data[1]) && newPwdT.Password == secondNewPwdT.Password && (cD.checkData(newPwdT.Password)))
+                if ((data[1] == "" || VerifyMd5Hash(lastPwdT.Password, data[1])) && newPwdT.Password == secondNewPwdT.Password && (cD.checkData(newPwdT.Password)))
                 {
                     List<MyTable> result = new List<MyTable>();
                     StreamReader myReader = new StreamReader(way);
@@ -129,7 +166,7 @@ namespace protect_of_information
 
                     StreamWriter myWriter = new StreamWriter(way);
                     result.Remove(result.Find(x => x.login == data2[0]));
-                    MyTable newPwd = new MyTable(data2[0], newPwdT.Password, data2[2], data2[3]);
+                    MyTable newPwd = new MyTable(data2[0], HashPassword(newPwdT.Password), data2[2], data2[3]);
                     result.Add(newPwd);
 
                     foreach (var a in result)
@@ -146,7 +183,7 @@ namespace protect_of_information
                 {
                     MessageBox.Show("В пароле должны присутствовать латинские буквы, символы кириллицы и знаки арифметических операций!", "Ошибка");
                 }
-                else if(lastPwdT.Password != data[1] && data[1] != "")
+                else if(VerifyMd5Hash(lastPwdT.Password, data[1]) && data[1] != "")
                 {
                     MessageBox.Show("Проверьте текущий пароль!", "Ошибка");
                 }
