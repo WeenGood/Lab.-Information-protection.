@@ -21,7 +21,7 @@ namespace protect_of_information
             InitializeComponent();
         }
 
-        string codeEnc;
+        string codeEnc = "qweqwe";
 
         class MyTable
         {
@@ -55,27 +55,42 @@ namespace protect_of_information
 
         bool ok;
 
-
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            code encWin = new code();
-            encWin.ShowDialog();
-            codeEnc = encWin.codeEnc;
-            ok = encWin.ok;
-            if (!encWin.ok)
-                this.Close();
-
-            //FileInfo fileInf = new FileInfo(way);
-            //if(fileInf.Exists)
-            //{
-            //    fileInf.Delete();
-            //}
-            //FileStream wtf = fileInf.Create();
-            //wtf.Dispose();
-            //StreamWriter myWriter = fileInf.AppendText();
-            //myWriter.WriteLine("admin||-|-");
-            //myWriter.Close();
+            FileInfo test = new FileInfo(way2);
+            if (test.Exists)
+            {
+                code encWin = new code();
+                encWin.ShowDialog();
+                codeEnc = encWin.codeEnc;
+                ok = encWin.ok;
+                if (!encWin.ok)
+                    this.Close();
+            }
+            else
+            {
+                FileInfo newF = new FileInfo(way);
+                FileStream asd = newF.Create();
+                asd.Close();
+                asd.Dispose();
+                StreamWriter myWrite = newF.AppendText();
+                myWrite.WriteLine("admin||-|-");
+                myWrite.Close();
+                myWrite.Dispose();
+                ok = true;
+            }
         }
+    //FileInfo fileInf = new FileInfo(way);
+    //if(fileInf.Exists)
+    //{
+    //    fileInf.Delete();
+    //}
+    //FileStream wtf = fileInf.Create();
+    //wtf.Dispose();
+    //StreamWriter myWriter = fileInf.AppendText();
+    //myWriter.WriteLine("admin||-|-");
+    //myWriter.Close();
+
 
         List<MyTable> createMyList()
         {
@@ -193,7 +208,7 @@ namespace protect_of_information
                         if (null != result.Find(x => x.password == "" && x.login == login))
                         {
                             result.Remove(result.Find(x => x.password == "" && x.login == login));
-                            result.Add(new MyTable(data[0], pass, data[2],data[3]));
+                            result.Add(new MyTable(data[0], HashPassword(pass), data[2],data[3]));
                         }
                         break;
                     }
@@ -210,7 +225,7 @@ namespace protect_of_information
                     if (!newPass)
                     {
                         myReader.Close();
-                        userWindow user = new userWindow(data);
+                        user user = new user(data);
                         user.ShowDialog();
                     }
                     break;
@@ -218,13 +233,14 @@ namespace protect_of_information
             } while ((line = myReader.ReadLine()) !=null);
 
             myReader.Close();
-            if (newPass)
+            
+                if(newPass)
             {
                 StreamWriter myWriter = new StreamWriter(way);
 
                 foreach (var a in result)
                 {
-                    myWriter.WriteLine(a.login + "|" + HashPassword(a.password) + "|" + a.ban + "|" + a.limit);
+                    myWriter.WriteLine(a.login + "|" + a.password + "|" + a.ban + "|" + a.limit);
                 }
                 myWriter.Close();
             }
@@ -301,7 +317,22 @@ namespace protect_of_information
             byte[] encrypted = msEncrypt.ToArray();
             msEncrypt.Close();
             csEncrypt.Close();
-            StreamWriter myWriter = new StreamWriter(way2);
+            FileInfo test = new FileInfo(way2);
+            StreamWriter myWriter;
+            if (test.Exists)
+            {
+                myWriter = new StreamWriter(way2);
+            }
+            else
+            {
+                FileStream asd = test.Create();
+                asd.Close();
+                asd.Dispose();
+                myWriter = test.AppendText();
+
+            }
+
+            
 
             myWriter.Write(Encoding.Default.GetString(encrypted));
 
@@ -347,6 +378,10 @@ namespace protect_of_information
             {
                 myFile.Delete();
             }
+            FileInfo myFile2 = new FileInfo(way2);
+           
+            Environment.Exit(0);
+
         }
 
 

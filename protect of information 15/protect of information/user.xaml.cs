@@ -166,7 +166,7 @@ namespace protect_of_information
 
                     StreamWriter myWriter = new StreamWriter(way);
                     result.Remove(result.Find(x => x.login == data2[0]));
-                    MyTable newPwd = new MyTable(data2[0], HashPassword(newPwdT.Password), data2[2], data2[3]);
+                    MyTable newPwd = new MyTable(data[0], HashPassword(newPwdT.Password), data[2], data[3]);
                     result.Add(newPwd);
 
                     foreach (var a in result)

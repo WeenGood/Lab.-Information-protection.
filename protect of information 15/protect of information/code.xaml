@@ -13,8 +13,8 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="okB" Content="Готово" HorizontalAlignment="Left" Margin="67,97,0,0" VerticalAlignment="Top" Width="75" Click="okB_Click"/>
         <Label Content="Пароль для расшифрования базы учетных записей:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="340" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="codeT" HorizontalAlignment="Left" Height="23" Margin="10,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="340" Grid.ColumnSpan="2"/>
         <Button x:Name="exitB" Content="Выход" HorizontalAlignment="Left" Margin="206,97,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="exitB_Click"/>
+        <PasswordBox x:Name="codeT" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="302"/>
 
     </Grid>
 </Window>

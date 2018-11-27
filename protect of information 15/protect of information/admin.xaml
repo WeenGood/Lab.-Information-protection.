@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:protect_of_information"
         mc:Ignorable="d"
-        Title="Окно администратора" Height="463.18" Width="545.815" Activated="Window_Activated">
+        Title="Окно администратора" Height="463.18" Width="823.513" Activated="Window_Activated">
     <Grid Loaded="Grid_Loaded">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="142*"/>
             <ColumnDefinition Width="129*"/>
             <ColumnDefinition Width="267*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="myDataGrid" HorizontalAlignment="Left" Height="399" Margin="115,10,0,0" VerticalAlignment="Top" Width="271" Loaded="DataGrid_Loaded" MouseDoubleClick="myDataGrid_MouseDoubleClick" SelectionUnit="Cell" Grid.Column="1" IsHitTestVisible="True" Grid.ColumnSpan="2"/>
+        <DataGrid x:Name="myDataGrid" HorizontalAlignment="Left" Height="399" Margin="115,10,0,0" VerticalAlignment="Top" Width="467" Loaded="DataGrid_Loaded" MouseDoubleClick="myDataGrid_MouseDoubleClick" SelectionUnit="Cell" Grid.Column="1" IsHitTestVisible="True" Grid.ColumnSpan="2"/>
         <Button x:Name="newB" Content="Добавить" HorizontalAlignment="Left" Margin="91,295,0,0" VerticalAlignment="Top" Width="75" Click="newB_Click" Grid.ColumnSpan="2"/>
         <Button x:Name="changePwd" Content="Сменить пароль" HorizontalAlignment="Left" Margin="31,210,0,0" VerticalAlignment="Top" Width="108" Click="changePwd_Click"/>
         <Button Content="Выход" HorizontalAlignment="Left" Margin="10,394,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>

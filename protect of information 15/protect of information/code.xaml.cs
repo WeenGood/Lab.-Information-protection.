@@ -40,7 +40,7 @@ namespace protect_of_information
 
         private void okB_Click(object sender, RoutedEventArgs e)
         {
-            codeEnc = codeT.Text;
+            codeEnc = codeT.Password;
 
             if (codeEnc != "" && codeEnc.Length>4 && codeEnc.Length<17)
             {
@@ -49,7 +49,7 @@ namespace protect_of_information
                 encReader.Close();
                 RC2CryptoServiceProvider rc2CSP = new RC2CryptoServiceProvider();
                 
-                byte[] key = Encoding.Default.GetBytes(codeT.Text);
+                byte[] key = Encoding.Default.GetBytes(codeT.Password);
                 rc2CSP.Key = key;
                 byte[] IV =  { 156, 158, 224, 153, 115, 56, 171, 196 };
                 rc2CSP.IV = IV;
